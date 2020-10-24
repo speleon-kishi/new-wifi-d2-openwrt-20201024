@@ -111,6 +111,7 @@ Target Profile:    Newwifi D2
 
 其余的主要就是在LuCI-->Applications当中找到适合自己的插件，没有推荐。
 其它选项主要是核心模块选择，涉及设备特性，需硬件自身支持。
+可以参考：```https://jingyan.baidu.com/article/cdddd41c948b4b53cb00e180.html```
 
 本源码fork自Lienol的源码，除本说明外，未改动其他内容，已在2020年10月22日通过编译安装sysupgrade包在NewWifi3 D2上已成功使用。
 -
