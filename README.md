@@ -18,99 +18,92 @@ sudo apt-get -y install build-essential asciidoc binutils bzip2 curl gawk gettex
 
 5. `make -j8 download V=s` 下载dl库（国内请尽量全局科学上网）
 
-
 6. 输入 `make -j1 V=s` （-j1 后面是线程数。第一次编译推荐用单线程）即可开始编译你要的固件了。
 
-6. 编译完成后输出路径：openwrt19/bin/targets
+7. 编译完成后输出路径：openwrt19/bin/targets
 
 你可以自由使用，但源码编译二次发布请注明我的 GitHub 仓库链接。谢谢合作！
+
+ -----------------------------------------------------------分割线--------------------------------------------------------------------------
  
- -----------------------------------------------------
+以下内容仅供自己注释使用，上述内容为作者Lienol(Li大，又名大雕)的原文中文说明，望知悉。
+-
 
-![OpenWrt logo](/logo.svg)
+As the author has removed the part of the original repository on plugins about some add-on, so if want to compiling completed contents,
+need to add ```src-git lienol https://github.com/harry3633/openwrt-package``` to ```./feeds.conf.default```. Thank you:)
 
-OpenWrt Project is a Linux operating system targeting embedded devices. Instead
-of trying to create a single, static firmware, OpenWrt provides a fully
-writable filesystem with package management. This frees you from the
-application selection and configuration provided by the vendor and allows you
-to customize the device through the use of packages to suit any application.
-For developers, OpenWrt is the framework to build an application without having
-to build a complete firmware around it; for users this means the ability for
-full customization, to use the device in ways never envisioned.
+注意事项：
+-
 
-Sunshine!
+1.本源码要求以非root身份去执行，即上文的sudo是不要不去执行的，但考虑部分伺服器开头即给的是root身份，可参考以下执行：
 
-## Development
-
-To build your own firmware you need a GNU/Linux, BSD or MacOSX system (case
-sensitive filesystem required). Cygwin is unsupported because of the lack of a
-case sensitive file system.
-
-### Requirements
-
-You need the following tools to compile OpenWrt, the package names vary between
-distributions. A complete list with distribution specific packages is found in
-the [Build System Setup](https://openwrt.org/docs/guide-developer/build-system/install-buildsystem)
-documentation.
+（以下内容需用最高权限执行）
 
 ```
-gcc binutils bzip2 flex python3 perl make find grep diff unzip gawk getopt
-subversion libz-dev libc-dev
+useradd speleon
+chmod 777 /etc/sudoers
+vim /etc/sudoers   ------>  speleon ALL=(ALL:ALL) ALL
+chmod 440/etc/sudoers
+mkdir /home/speleon
+chmod 755 /home/speleom
+chown speleon /home/spleon
 ```
 
-### Quickstart
+2.部分参考的来源数据
 
-1. Run `./scripts/feeds update -a` to obtain all the latest package definitions
-   defined in feeds.conf / feeds.conf.default
+```
+src-git packages https://github.com/Lienol/openwrt-packages.git;19.07
+src-git routing https://git.openwrt.org/feed/routing.git;openwrt-19.07
+src-git telephony https://git.openwrt.org/feed/telephony.git;openwrt-19.07
+src-git luci https://github.com/Lienol/openwrt-luci.git;17.01
+src-git diy1 https://github.com/xiaorouji/openwrt-package.git;master
 
-2. Run `./scripts/feeds install -a` to install symlinks for all obtained
-   packages into package/feeds/
+src-git kenzo https://github.com/kenzok8/openwrt-packages
+src-git lienol https://github.com/fw876/helloworld
+```
 
-3. Run `make menuconfig` to select your preferred configuration for the
-   toolchain, target system & firmware packages.
+2.1参考链接
 
-4. Run `make` to build your firmware. This will download all sources, build the
-   cross-compile toolchain and then cross-compile the GNU/Linux kernel & all chosen
-   applications for your target system.
+```
+https://mianao.info/2020/05/05/%E7%BC%96%E8%AF%91%E6%9B%B4%E6%96%B0OpenWrt-PassWall%E5%92%8CSSR-plus%E6%8F%92%E4%BB%B6
+```
 
-### Related Repositories
+3.自己选用的插件（遵循上述内容）
 
-The main repository uses multiple sub-repositories to manage packages of
-different categories. All packages are installed via the OpenWrt package
-manager called `opkg`. If you're looking to develop the web interface or port
-packages to OpenWrt, please find the fitting repository below.
+```
+luci_app_passwall
+         privoxy（ 放弃，不会用:) ）
+         minidlna
+         kcptun( 伺服器不支持 )
+         frpc
+         qos（ 有相似功能 ）
+```
 
-* [LuCI Web Interface](https://github.com/openwrt/luci): Modern and modular
-  interface to control the device via a web browser.
+4.源码中.config默认已添加对IPv6的支持，如需使用，在网络-->DHCP中的IPv6设置内三个都选中继模式，该部分已测试通过，未发现问题。
 
-* [OpenWrt Packages](https://github.com/openwrt/packages): Community repository
-  of ported packages.
+详情请参考：
 
-* [OpenWrt Routing](https://github.com/openwrt-routing/packages): Packages
-  specifically focused on (mesh) routing.
+```
+https://blog.csdn.net/fjh1997/article/details/107507648 
+#IPv6的直接配置文件内容，测试已通过，其中network毋须按文章修改，用自身原有的即可。
+```
 
-## Support Information
+5.编译问题
 
-For a list of supported devices see the [OpenWrt Hardware Database](https://openwrt.org/supported_devices)
+由于该份源码极为复杂，且需要自身网络支持，考虑经济等因素，故选用了*某某家的美国虚拟伺服器*，推荐选择按时计费的，参考配置：1v Core CPU, 2048MB RAM，充值之后可多次编译且资费极低。
+由于临时租用，更适合全新编译，并采用单线程以保证不过度超负荷使用,大约需要四个小时，编译完成即可通过SFTP将自己压缩好后的targets传至本机。
 
-### Documentation
+当然，还有一种就是借用GitHub自身的Action服务通过config让GitHub的服务器全自动编译对应自己架构的包，免费，不过目前没有试过了:)。
+P.S.:x86_64的在Telegram上有人自己编译，请自行寻找。
 
-* [Quick Start Guide](https://openwrt.org/docs/guide-quick-start/start)
-* [User Guide](https://openwrt.org/docs/guide-user/start)
-* [Developer Documentation](https://openwrt.org/docs/guide-developer/start)
-* [Technical Reference](https://openwrt.org/docs/techref/start)
+说在最后
+-
 
-### Support Community
+本源码fork自Lienol的源码，除本说明外，未改动其他内容，已在2020年10月22日通过编译安装sysupgrade包在NewWifi3 D2上已成功使用。
+-
 
-* [Forum](https://forum.openwrt.org): For usage, projects, discussions and hardware advise.
-* [Support Chat](https://webchat.freenode.net/#openwrt): Channel `#openwrt` on freenode.net.
+该份源码官方最后修改自10日前，于24日拷贝。
+-
 
-### Developer Community
-
-* [Bug Reports](https://bugs.openwrt.org): Report bugs in OpenWrt
-* [Dev Mailing List](https://lists.openwrt.org/mailman/listinfo/openwrt-devel): Send patches
-* [Dev Chat](https://webchat.freenode.net/#openwrt-devel): Channel `#openwrt-devel` on freenode.net.
-
-## License
-
-OpenWrt is licensed under GPL-2.0
+本代码仅供参考学习，且不提供支持，若同为上述设备，可通过Telegram联系@speleon_kishi。
+-
