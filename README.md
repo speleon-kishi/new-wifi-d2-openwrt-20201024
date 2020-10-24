@@ -96,8 +96,6 @@ https://blog.csdn.net/fjh1997/article/details/107507648
 当然，还有一种就是借用GitHub自身的Action服务通过config让GitHub的服务器全自动编译对应自己架构的包，免费，不过目前没有试过了:)。
 P.S.:x86_64的在Telegram上有人自己编译，请自行寻找。
 
-说在最后
--
 
 本源码fork自Lienol的源码，除本说明外，未改动其他内容，已在2020年10月22日通过编译安装sysupgrade包在NewWifi3 D2上已成功使用。
 -
