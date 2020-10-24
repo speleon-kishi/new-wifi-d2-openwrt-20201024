@@ -26,7 +26,7 @@ sudo apt-get -y install build-essential asciidoc binutils bzip2 curl gawk gettex
 
  -----------------------------------------------分割线-----------------------------------------------
  
-以下内容仅供自己注释使用，上述内容为作者Lienol(Li大，又名大雕)的原文中文说明，望知悉。
+以下内容仅供自己注释使用，上述内容为作者Lienol(Li大，又名大雕)的原文中文说明，英文部分在此副本已删除，望知悉。
 -
 
 As the author has removed the part of the original repository on plugins about some add-on, so if want to compiling completed contents,
