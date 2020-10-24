@@ -72,7 +72,7 @@ https://mianao.info/2020/05/05/%E7%BC%96%E8%AF%91%E6%9B%B4%E6%96%B0OpenWrt-PassW
 在```make menuconfig```里的LuCI-->Applications里
 
 ```
-luci_app_passwall
+luci_app_p*******
          privoxy（ 放弃，不会用:) ）
          minidlna
          kcptun( 伺服器不支持 )
