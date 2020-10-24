@@ -69,6 +69,7 @@ https://mianao.info/2020/05/05/%E7%BC%96%E8%AF%91%E6%9B%B4%E6%96%B0OpenWrt-PassW
 ```
 
 3.自己选用的插件（遵循上述内容）
+在```make menuconfig```里的LuCI-->Applications里
 
 ```
 luci_app_passwall
@@ -76,7 +77,7 @@ luci_app_passwall
          minidlna
          kcptun( 伺服器不支持 )
          frpc
-         qos（ 有相似功能 ）
+         qos（ 有相似功能的，之后自己的编译去除了 ）
 ```
 
 4.源码中.config默认已添加对IPv6的支持，如需使用，在网络-->DHCP中的IPv6设置内三个都选中继模式，该部分已测试通过，未发现问题。
@@ -96,10 +97,24 @@ https://blog.csdn.net/fjh1997/article/details/107507648
 当然，还有一种就是借用GitHub自身的Action服务通过config让GitHub的服务器全自动编译对应自己架构的包，免费，不过目前没有试过了:)。
 P.S.:x86_64的在Telegram上有人自己编译，请自行寻找。
 
+6.make menuconfig
+
+这个会进入一个彩色界面，用于定制编译属于自己的OpenWRT，其中前三项涉及设备模块选择以及架构，不能选错，详细内容可在面板中的状态-->概况找到。
+
+在此处以本人用的NewWifi3 D2为例：
+
+```
+        Target:    MediaTek Ralink MIPS
+     Subtarget:    MT7621 base boards
+Target Profile:    Newwifi D2
+```
+
+其余的主要就是在LuCI-->Applications当中找到适合自己的插件，没有推荐。
+其它选项主要是核心模块选择，涉及设备特性，需硬件自身支持。
 
 本源码fork自Lienol的源码，除本说明外，未改动其他内容，已在2020年10月22日通过编译安装sysupgrade包在NewWifi3 D2上已成功使用。
 -
-友情提示：如果只是添加插件，可保留配置在面板升级，否则为保证不出错，请去除保留配置一项。若出错无法找到，可重新不保留配置刷入固件测试，再考虑发issue给Lienol
+友情提示：如果只是添加插件，可保留配置在面板升级，否则为保证不出错，请去除保留配置一项。若出错无法找到，可重新不保留配置刷入固件测试，再考虑发issue给Lienol。
          如果非同一固件或固件（可能）变化较大，建议进入不死breed刷入固件，备份！！！（通过这种方式升级为不保留配置）
 
 该份源码官方最后修改自10日前，于24日拷贝。
