@@ -37,16 +37,16 @@ need to add ```src-git lienol https://github.com/harry3633/openwrt-package``` to
 
 1.本源码要求以非root身份去执行，即上文的sudo是不要不去执行的，但考虑部分伺服器开头即给的是root身份，可参考以下执行：
 
-（以下内容需用最高权限执行）
+（以下内容需用最高权限执行，不规范之处，请多多包涵）
 
 ```
 useradd speleon
 chmod 777 /etc/sudoers
-vim /etc/sudoers   ------>  speleon ALL=(ALL:ALL) ALL
+visudo /etc/sudoers   ------>  speleon ALL=(ALL:ALL) ALL
 chmod 440/etc/sudoers
 mkdir /home/speleon
-chmod 755 /home/speleom
-chown speleon /home/spleon
+chmod 755 /home/speleon
+chown speleon /home/speleon
 ```
 
 2.部分参考的来源数据
