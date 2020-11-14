@@ -49,6 +49,8 @@ chmod 755 /home/speleon
 chown speleon /home/speleon
 passwd
 passwd speleon
+su speleon
+cd ~
 ```
 
 2.部分参考的来源数据
