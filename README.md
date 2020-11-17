@@ -42,7 +42,7 @@ need to add ```src-git lienol https://github.com/harry3633/openwrt-package``` to
 ```
 useradd speleon
 chmod 777 /etc/sudoers
-visudo /etc/sudoers   ------>  speleon ALL=(ALL:ALL) ALL
+vim /etc/sudoers   ------>  speleon ALL=(ALL:ALL) ALL
 chmod 440 /etc/sudoers
 mkdir /home/speleon
 chmod 755 /home/speleon
