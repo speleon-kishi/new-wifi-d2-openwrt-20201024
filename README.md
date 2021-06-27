@@ -7,7 +7,7 @@
 sudo apt-get -y install build-essential asciidoc binutils bzip2 curl gawk gettext git libncurses5-dev libz-dev patch python3.5 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf
 `
 
-3. `git clone -b 19.07 --single-branch https://github.com/Lienol/openwrt openwrt19` 命令下载好源代码，然后 `cd openwrt19` 进入目录
+3. `git clone -b 19.07 --single-branch https://github.com/Lienol/openwrt openwrt` 命令下载好源代码，然后 `cd openwrt` 进入目录
 
 4. ```bash
    ./scripts/feeds clean
@@ -20,7 +20,7 @@ sudo apt-get -y install build-essential asciidoc binutils bzip2 curl gawk gettex
 
 6. 输入 `make -j1 V=s` （-j1 后面是线程数。第一次编译推荐用单线程）即可开始编译你要的固件了。
 
-7. 编译完成后输出路径：openwrt19/bin/targets
+7. 编译完成后输出路径：openwrt/bin/targets
 
 你可以自由使用，但源码编译二次发布请注明我的 GitHub 仓库链接。谢谢合作！
 
@@ -30,12 +30,12 @@ sudo apt-get -y install build-essential asciidoc binutils bzip2 curl gawk gettex
 -
 
 As the author has removed the part of the original repository on plugins about some add-on, so if want to compiling completed contents,
-need to add ```src-git lienol https://github.com/harry3633/openwrt-package``` to ```./feeds.conf.default```. Thank you:)
+need to add something to ```./feeds.conf.default```. Thank you:)
 
 注意事项：
 -
 
-1.本源码要求以非root身份去执行，即上文的sudo是不要不去执行的，但考虑部分伺服器开头即给的是root身份，可参考以下执行：
+1.本源码要求以非root身份去执行，即上文的sudo是不要不去执行的，但考虑部分服务器开头即给的是root身份，可参考以下执行：
 
 （以下内容需用最高权限执行，不规范之处，请多多包涵）
 
@@ -56,14 +56,8 @@ cd ~
 2.部分参考的来源数据
 
 ```
-src-git packages https://github.com/Lienol/openwrt-packages.git;19.07
-src-git routing https://git.openwrt.org/feed/routing.git;openwrt-19.07
-src-git telephony https://git.openwrt.org/feed/telephony.git;openwrt-19.07
-src-git luci https://github.com/Lienol/openwrt-luci.git;17.01
-src-git diy1 https://github.com/xiaorouji/openwrt-package.git;master
-
 src-git kenzo https://github.com/kenzok8/openwrt-packages
-src-git lienol https://github.com/fw876/helloworld
+src-git small https://github.com/kenzok8/small
 ```
 
 2.1参考链接
@@ -82,6 +76,7 @@ luci_app_p*******
          kcptun( 伺服器不支持 )
          frpc
          qos（ 有相似功能的，之后自己的编译去除了 ）
+         smartdns
 ```
 
 4.源码中.config默认已添加对IPv6的支持，如需使用，在网络-->DHCP中的IPv6设置内三个都选中继模式，该部分已测试通过，未发现问题。
